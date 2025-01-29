@@ -7,12 +7,15 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 #[AsCommand('app:scrape-systems')]
 class ScrapeSystems extends Command
 {
-    public function __construct(private ScraperRepositoryInterface $scraperRepository)
-    {}
+    public function __construct(private ScraperRepositoryInterface $scraperRepository, private HttpClientInterface $httpClient)
+    {
+        parent::__construct();
+    }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
